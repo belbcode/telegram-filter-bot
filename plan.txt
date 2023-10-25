@@ -1,0 +1,52 @@
+Telegram Bot that filters content and creates alerts.
+
+--Feature List--
+1. Can be invited to Channels
+2. Can be asked to filter content (LLM integration)
+3. Connected to Home Front and creates Alerts in the Channel
+4. MongoDB retains application state
+5. Users and Channels are tracked
+
+--Examples--
+2. @HomeFront /filter incoming messages for news about the hostages
+>> Listen to incoming messages news about hostages with LLM calls in the Telegram Chaneel, if 
+
+5. 
+User_Schema
+UserId: ObjectId(...)
+ChannelId: fkey ObjectId(...) ### channel that user is from
+TelegramId: sjid7...
+Chat_id: sjid7...
+Date: Date
+first_name='Benjamin', id=5888615177, is_bot=False, language_code='en', last_name='Gelb'
+
+Channel_Schema
+ChannelId: ObjectId(...)
+Filters: Array fkey[ObjectId Filter] ### Filter that users request to be added onto the Message (limit to 25)
+Date: Date
+LLM_Info: fkey ObjectId(...) LLM
+InvitedBy: fkey ObjectId(...) User
+
+
+Filter_Schema
+FilterId: ObjectId(...)
+FilterText: Information about the release of hostages.
+UserId: fkey User ### User that set the Filter
+Date: Date
+LLMInfo: fkey ObjectId(...)
+
+LLM_Schema
+LLMId: ObjectId(...)
+Tokens_Used: Int
+Tokens_Remaining: Int
+Cost: Float
+...and more
+
+Maybe Self-Audit feature to make sure that behavior on channel is healthy. /Audit
+
+
+Plan of Action
+1. Create bot that can be connected to a channel
+2. Build /filter in server environment
+3. Create Database
+4. Rebuild /filter for database
