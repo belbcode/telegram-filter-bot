@@ -3,6 +3,7 @@ from telegram.ext import ContextTypes
 
 class Filter:
     callback_query_pattern = None
+    
     """For making patterns more consistent"""
 
     def __init__(self, update: Update, context: ContextTypes.DEFAULT_TYPE, id: str, **kwargs) -> None:
@@ -26,6 +27,7 @@ class Filter:
 
     def toggle(self):
         self.active = not self.active
+
 
     def __repr__(self) -> str:
         if not self.active:

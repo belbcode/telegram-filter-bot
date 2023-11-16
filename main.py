@@ -1,10 +1,12 @@
 import dotenv, os, logging
 from telegram import Update
 from telegram.ext import CommandHandler, Application, ApplicationBuilder
-from src.post_init import post_init
+from src.Database.db import connect_to_db
+from src.Telegram.main import main
 
 # Load environment variables from .env file
 dotenv.load_dotenv()
+connect_to_db()
 
 # Enable logging
 logging.basicConfig(
@@ -14,10 +16,6 @@ logging.basicConfig(
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
 logger = logging.getLogger(__name__)
-
-def main():
-    app = ApplicationBuilder().token(os.getenv('TELEGRAM_TOKEN')).post_init(post_init).build()
-    app.run_polling()
     
 if __name__ == "__main__":
     main()

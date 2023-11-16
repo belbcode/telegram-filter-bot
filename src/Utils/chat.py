@@ -1,6 +1,6 @@
 import json
 from telegram import Update
-from telegram.ext import ContextTypes, Application
+from telegram.ext import ContextTypes
 from .filter import Filter
 
 class ListLimitExceededError(Exception):
@@ -34,6 +34,12 @@ class Chat:
         if len(self.filters) >= self.filter_limit:
             raise ListLimitExceededError(self.filter_limit)
         self.filters.append(filter)
+
+    def delete_filter(self, id: str):
+        if id == "f":
+            raise ValueError("Cannot delete the ")
+        self.filters = filter(lambda f : f.id != id, self.filters)
+
 
     def repr_filters(self) -> str:
         return ''.join(filter.__repr__() for filter in self.filters)

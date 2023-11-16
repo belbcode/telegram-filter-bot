@@ -1,4 +1,5 @@
 from .chat import Chat
+
 class RuntimeManager:
     chats: list[Chat] = []
 
@@ -15,5 +16,3 @@ class RuntimeManager:
         else:
             raise ValueError("Chat has already been intialized.")
 
-
-rtm = RuntimeManager()

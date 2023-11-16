@@ -1,12 +1,13 @@
 from telegram import Update, BotCommand
 from telegram.ext import ContextTypes, CommandHandler
-from ..Utils.runtime_manager import rtm
+from .ExportCommand import ExportCommand
+from ..setup import RTM
 from ..Utils.filter import Filter
 import random, string
 
-async def filter(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def filtercommand(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
-    chat = rtm.chat_lookup(update.effective_chat.id)
+    chat = RTM.chat_lookup(update.effective_chat.id)
     if chat == None:
         await update.message.reply_text("Filters not yet enabled on this chat. Try /start")
         return
@@ -16,7 +17,5 @@ async def filter(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await context.bot.send_message(update.effective_chat.id, text= f"We'll start checking messages for content that matches {' '.join(context.args)}")
 
+filter = ExportCommand(CommandHandler("filter", filtercommand), BotCommand('filter', "Add an AI powered content filter."))
 
-filter_command = CommandHandler("filter", filter)
-
-filter_bot_command = BotCommand('filter', "Add an AI powered content filter.")

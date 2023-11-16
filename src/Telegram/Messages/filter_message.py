@@ -1,11 +1,11 @@
 from telegram import Update
 from telegram.ext import filters, ContextTypes, MessageHandler, filters
-from ..Utils.runtime_manager import rtm
+from ..setup import RTM
 from ..Utils.llm.filter_chain import filter_chain
 
 
 async def filter_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    chat = rtm.chat_lookup(update.effective_chat.id)
+    chat = RTM.chat_lookup(update.effective_chat.id)
     if chat == None:
         return
     filters_repr = chat.repr_filters()
